@@ -1,11 +1,23 @@
 const path = require('path');
+const http = require('http');
 const express = require('express');
+const socketIO = require('socket.io');
 
 const publicPath = path.join(__dirname, '../public');
 const port = process.env.PORT || 3000;
 var app = express();
+var server = http.createServer( app );
+var io = socketIO(server);
 
 app.use(express.static(publicPath));
 
-app.listen( port, () => { console.log(`Server arriba arribota en puerto ${port}`) });
+io.on('connection', (socket) => {
+    console.log('New user arrived');
+
+    socket.on('disconnect', () => {
+        console.log('User disconnected');
+    });
+});
+
+server.listen( port, () => { console.log(`Server http arriba arribota en puerto ${port}`) });
 
