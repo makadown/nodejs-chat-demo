@@ -13,17 +13,37 @@ app.use(express.static(publicPath));
 
 io.on('connection', (socket) => {
     console.log('New user connected baby!');
-
     // socket.emit() Emite un evento a una sola conexión.
+
+    // From Admin text welcome to the chat app
+    socket.emit('newMessage', {
+        from: 'Admin',
+        text: 'Welcome to the chat app',
+        createdAt: new Date().getTime()
+    });
+
+    // From Admin to every user joined
+    socket.broadcast.emit('newMessage', {
+        from: 'Admin',
+        text: 'New User Joined',
+        createdAt: new Date().getTime()
+    });
 
     socket.on('createMessage', (message)=>{
         console.log('createMessage', message);
         // io.emit() Emite evento a un chingo de conexiones.
         io.emit('newMessage', {
-            from: message.from,
-            text: message.text,
-            createdAt: new Date().getTime()
+             from: message.from,
+             text: message.text,
+             createdAt: new Date().getTime()
         });
+        /*
+        socket.broadcast.emit('newMessage', {
+                 from: message.from,
+                 text: message.text,
+                 createdAt: new Date().getTime()
+        });
+        */
     });
 
     socket.on('disconnect', () => {
