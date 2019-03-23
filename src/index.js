@@ -3,32 +3,16 @@ const http = require('http');
 const express = require('express');
 const socketIO = require('socket.io');
 
-const publicPath = path.join(__dirname, '../public');
+const publicDirectoryPath = path.join(__dirname, '../public');
 const port = process.env.PORT || 3000;
 var app = express();
 var server = http.createServer( app );
 var io = socketIO(server);
 
-app.use(express.static(publicPath));
+app.use(express.static(publicDirectoryPath));
 
 io.on('connection', (socket) => {
-    console.log('New user connected baby!');
-
-    // socket.emit() Emite un evento a una sola conexión.
-
-    socket.on('createMessage', (message)=>{
-        console.log('createMessage', message);
-        // io.emit() Emite evento a un chingo de conexiones.
-        io.emit('newMessage', {
-            from: message.from,
-            text: message.text,
-            createdAt: new Date().getTime()
-        });
-    });
-
-    socket.on('disconnect', () => {
-        console.log('User disconnected');
-    });
+    console.log('New websocket connection!');
 });
 
 server.listen( port, () => { console.log(`Server http arriba arribota en puerto ${port}`) });
