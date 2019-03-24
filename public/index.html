@@ -1,145 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Node Chat App Demo</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="/css/chat.css">
-</head>
-<body>
-    <div class="content container-fluid bootstrap snippets">
-            Hola, bienvenido a la app demo de chat!
-        <div class="row row-broken">
-          <div class="col-sm-12 col-xs-12 chat" style="overflow: hidden; outline: none;" tabindex="5001">
-            <div class="col-inside-lg decor-default">
-              <div class="chat-body">
-                <!--<div class="answer left">-->
-                <!--  <div class="avatar">-->
-                <!--    <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="User name">-->
-                <!--    <div class="status offline"></div>-->
-                <!--  </div>-->
-                <!--  <div class="name">Alexander Herthic</div>-->
-                <!--  <div class="text">-->
-                <!--    Lorem ipsum dolor amet, consectetur adipisicing elit Lorem ipsum dolor amet, consectetur adipisicing elit Lorem ipsum dolor amet, consectetur adiping elit-->
-                <!--  </div>-->
-                <!--  <div class="time">5 min ago</div>-->
-                <!--</div>-->
-                <!--<div class="answer right">-->
-                <!--  <div class="avatar">-->
-                <!--    <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="User name">-->
-                <!--    <div class="status offline"></div>-->
-                <!--  </div>-->
-                <!--  <div class="name">Alexander Herthic</div>-->
-                <!--  <div class="text">-->
-                <!--    Lorem ipsum dolor amet, consectetur adipisicing elit Lorem ipsum dolor amet, consectetur adipisicing elit Lorem ipsum dolor amet, consectetur adiping elit-->
-                <!--  </div>-->
-                <!--  <div class="time">5 min ago</div>-->
-                <!--</div>-->
-                <!--<div class="answer left">-->
-                <!--  <div class="avatar">-->
-                <!--    <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="User name">-->
-                <!--    <div class="status online"></div>-->
-                <!--  </div>-->
-                <!--  <div class="name">Alexander Herthic</div>-->
-                <!--  <div class="text">-->
-                <!--    ...-->
-                <!--  </div>-->
-                <!--  <div class="time">5 min ago</div>-->
-                <!--</div>-->
-                <!--<div class="answer right">-->
-                <!--  <div class="avatar">-->
-                <!--    <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="User name">-->
-                <!--    <div class="status busy"></div>-->
-                <!--  </div>-->
-                <!--  <div class="name">Alexander Herthic</div>-->
-                <!--  <div class="text">-->
-                <!--    It is a long established fact that a reader will be. Thanks Mate!-->
-                <!--  </div>-->
-                <!--  <div class="time">5 min ago</div>-->
-                <!--</div>-->
-                <!--<div class="answer right">-->
-                <!--  <div class="avatar">-->
-                <!--    <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="User name">-->
-                <!--    <div class="status off"></div>-->
-                <!--  </div>-->
-                <!--  <div class="name">Alexander Herthic</div>-->
-                <!--  <div class="text">-->
-                <!--    It is a long established fact that a reader will be. Thanks Mate!-->
-                <!--  </div>-->
-                <!--  <div class="time">5 min ago</div>-->
-                <!--</div>-->
-                <!--<div class="answer left">-->
-                <!--  <div class="avatar">-->
-                <!--    <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="User name">-->
-                <!--    <div class="status offline"></div>-->
-                <!--  </div>-->
-                <!--  <div class="name">Alexander Herthic</div>-->
-                <!--  <div class="text">-->
-                <!--    Lorem ipsum dolor amet, consectetur adipisicing elit Lorem ipsum dolor amet, consectetur adipisicing elit Lorem ipsum dolor amet, consectetur adiping elit-->
-                <!--  </div>-->
-                <!--  <div class="time">5 min ago</div>-->
-                <!--</div>-->
-                <!--<div class="answer right">-->
-                <!--  <div class="avatar">-->
-                <!--    <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="User name">-->
-                <!--    <div class="status offline"></div>-->
-                <!--  </div>-->
-                <!--  <div class="name">Alexander Herthic</div>-->
-                <!--  <div class="text">-->
-                <!--    Lorem ipsum dolor amet, consectetur adipisicing elit Lorem ipsum dolor amet, consectetur adipisicing elit Lorem ipsum dolor amet, consectetur adiping elit-->
-                <!--  </div>-->
-                <!--  <div class="time">5 min ago</div>-->
-                <!--</div>-->
-                <!--<div class="answer left">-->
-                <!--  <div class="avatar">-->
-                <!--    <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="User name">-->
-                <!--    <div class="status online"></div>-->
-                <!--  </div>-->
-                <!--  <div class="name">Alexander Herthic</div>-->
-                <!--  <div class="text">-->
-                <!--    ...-->
-                <!--  </div>-->
-                <!--  <div class="time">5 min ago</div>-->
-                <!--</div>-->
-                <!--<div class="answer right">-->
-                <!--  <div class="avatar">-->
-                <!--    <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="User name">-->
-                <!--    <div class="status busy"></div>-->
-                <!--  </div>-->
-                <!--  <div class="name">Alexander Herthic</div>-->
-                <!--  <div class="text">-->
-                <!--    It is a long established fact that a reader will be. Thanks Mate!-->
-                <!--  </div>-->
-                <!--  <div class="time">5 min ago</div>-->
-                <!--</div>-->
-                <!--<div class="answer right">-->
-                <!--  <div class="avatar">-->
-                <!--    <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="User name">-->
-                <!--    <div class="status off"></div>-->
-                <!--  </div>-->
-                <!--  <div class="name">Alexander Herthic</div>-->
-                <!--  <div class="text">-->
-                <!--    It is a long established fact that a reader will be. Thanks Mate!-->
-                <!--  </div>-->
-                <!--  <div class="time">5 min ago</div>-->
-                <!--</div>-->
-                <div id="chat-messages"></div>
-                <div class="answer-add">
-                  <input placeholder="Escriba un mensaje">
-                  <span class="answer-btn answer-btn-2"></span>
-                </div>
-              </div>
-            </div>
-          </div>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <div class="row m-2">
+        <b>Chat App</b>
+      </div>
+      <div class="row">
+        <div class="form-group">
+          <a
+            name="increment"
+            id="increment"
+            class="btn btn-primary text-white"
+            role="button"
+            ><strong>+1</strong></a
+          >
         </div>
       </div>
+    </div>
 
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="/js/chat.js"></script>
-</body>
+  </body>
 </html>
