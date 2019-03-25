@@ -28,7 +28,12 @@ io.on('connection', (socket) => {
     });
 
     socket.on('disconnect', () => {
-        io.emit('message', 'Un usuario se ha ido...');
+        io.emit('message', `A user has left!`);
+    });
+
+    socket.on('sendLocation', (coords) => {
+        // io.emit('message', `Location: ${coords.latitude}, ${coords.longitude}`);
+        io.emit('message', `https://google.com/maps?q=${coords.latitude},${coords.longitude}`);
     });
 
 });
