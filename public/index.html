@@ -18,15 +18,31 @@
         <b>Chat App</b>
       </div>
       <div class="row">
-        <div class="form-group">
-          <a
-            name="increment"
-            id="increment"
-            class="btn btn-primary text-white"
-            role="button"
-            ><strong>+1</strong></a
-          >
-        </div>
+        <form id="message-form" name="message-form">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Mensaje:</span>
+            </div>
+            <textarea
+              class="form-control"
+              name="mensaje"
+              placeholder="Escriba aquí..."
+              id="mensaje"
+              aria-label="With textarea"
+            ></textarea>
+            <div class="input-group-append">
+              <button
+                class="btn btn-primary"
+                name="enviar"
+                id="enviar"
+                type="button"
+                disabled
+              >
+                Enviar
+              </button>
+            </div>
+          </div>
+        </form>
       </div>
     </div>
 
