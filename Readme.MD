@@ -12,3 +12,8 @@ Parte del entrenamiento en NodeJS. Instructor: Andrew Mead.
 o
 
 > npm run start
+
+
+## instalaciones notables
+
+> npm install bad-words

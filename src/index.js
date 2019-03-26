@@ -2,6 +2,7 @@ const path = require('path');
 const http = require('http');
 const express = require('express');
 const socketIO = require('socket.io');
+const Filter = require('bad-words');
 
 const publicDirectoryPath = path.join(__dirname, '../public');
 const port = process.env.PORT || 3000;
@@ -22,18 +23,24 @@ io.on('connection', (socket) => {
     socket.emit('message', 'Bienvenido a la app de chat!');
     socket.broadcast.emit('message', 'Un nuevo usuario se ha conectado...');
 
-    socket.on('mensajeCliente', (mensaje) =>{
-        // console.log('Mensaje recibido: ' + mensaje);
+    socket.on('mensajeEnviado', (mensaje, callback) =>{
+        const filter = new Filter();
+
+        if (filter.isProfane(mensaje)) {
+            return callback('No se permiten palabrotas!');
+        }
+
         io.emit('message', mensaje);
+        callback();
     });
 
     socket.on('disconnect', () => {
         io.emit('message', `A user has left!`);
     });
 
-    socket.on('sendLocation', (coords) => {
-        // io.emit('message', `Location: ${coords.latitude}, ${coords.longitude}`);
+    socket.on('sendLocation', (coords, retorno) => {
         io.emit('message', `https://google.com/maps?q=${coords.latitude},${coords.longitude}`);
+        retorno(); // hacerle saber al cliente que se ha enviado mensaje
     });
 
 });

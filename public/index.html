@@ -18,36 +18,34 @@
         <b>Chat App</b>
       </div>
       <div class="row">
-        <form id="message-form" name="message-form">
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text">Mensaje:</span>
-            </div>
-            <textarea
-              class="form-control"
-              name="mensaje"
-              placeholder="Escriba aquí..."
-              id="mensaje"
-              aria-label="With textarea"
-            ></textarea>
-            <div class="input-group-append">
-              <button
-                class="btn btn-primary"
-                name="enviar"
-                id="enviar"
-                type="button"
-                disabled
-              >
-                Enviar
-              </button>
-            </div>           
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Mensaje:</span>
           </div>
-        </form>
-        <div class="input-group-append">
+          <textarea
+            class="form-control"
+            name="mensaje"
+            placeholder="Escriba aquí..."
+            id="mensaje"
+            aria-label="With textarea"
+          ></textarea>
+          <div class="input-group-append">
+            <button
+              class="btn btn-primary"
+              name="enviar"
+              id="enviar"
+              type="button"
+              disabled
+            >
+              Enviar
+            </button>
+          </div>
+          <div class="input-group-append">
             <button class="btn btn-success" id="send-location">
               Enviar mi ubicación
             </button>
           </div>
+        </div>
       </div>
     </div>
 
