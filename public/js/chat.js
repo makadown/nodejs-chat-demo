@@ -1,5 +1,9 @@
 var socket = io();
 
+const $botonLocation = document.querySelector('#send-location');
+const $botonEnviar = document.querySelector('#enviar');
+const $txtMensaje = document.querySelector('#mensaje');
+
 // server (emit) -> client (receive) --acknowledgement--> server
 
 // client (emit) -> server (receive) --acknowledgement--> client
@@ -8,9 +12,16 @@ socket.on('message', mensaje => {
   console.log(mensaje);
 });
 
-document.querySelector('#enviar').addEventListener('click', e => {
-  const mensaje = document.querySelector('#mensaje').value;
+$botonEnviar.addEventListener('click', e => {
+  // deshabilitar boton mientras se genera evento
+  $botonEnviar.setAttribute('disabled', null);
+
+  const mensaje = $txtMensaje.value;
   socket.emit('mensajeEnviado', mensaje, error => {
+    // habilitar boton despues de evento
+    // $botonEnviar.removeAttribute('disabled');
+    $txtMensaje.value = '';
+    $txtMensaje.focus();
     if (error) {
       return console.log(error);
     }
@@ -18,20 +29,22 @@ document.querySelector('#enviar').addEventListener('click', e => {
   });
 });
 
-document.querySelector('#mensaje').addEventListener('keyup', function() {
-  var nameInput = document.querySelector('#mensaje').value;
+$txtMensaje.addEventListener('keyup', function() {
+  var nameInput = $txtMensaje.value;
   if (nameInput != '') {
-    document.querySelector('#enviar').removeAttribute('disabled');
+    $botonEnviar.removeAttribute('disabled');
   } else {
-    document.querySelector('#enviar').setAttribute('disabled', null);
+    $botonEnviar.setAttribute('disabled', null);
   }
 });
 
-document.querySelector('#send-location').addEventListener('click', () => {
+$botonLocation.addEventListener('click', () => {  
   if (!navigator.geolocation) {
     return alert('Geolocación no es soportada por el navegador.');
   }
+  $botonLocation.setAttribute('disabled', null);
   navigator.geolocation.getCurrentPosition(position => {
+    $botonLocation.removeAttribute('disabled');
     socket.emit('sendLocation', {
               latitude: position.coords.latitude,
               longitude: position.coords.longitude
