@@ -3,13 +3,21 @@ var socket = io();
 const $botonLocation = document.querySelector('#send-location');
 const $botonEnviar = document.querySelector('#enviar');
 const $txtMensaje = document.querySelector('#mensaje');
+const $mensajes = document.querySelector('#messages');
+
+// Templates
+const messageTemplate = document.querySelector('#message-template').innerHTML;
 
 // server (emit) -> client (receive) --acknowledgement--> server
 
 // client (emit) -> server (receive) --acknowledgement--> client
 
 socket.on('message', mensaje => {
-  console.log(mensaje);
+  // console.log(mensaje);
+  const html = Mustache.render(messageTemplate, {
+         mensaje
+  });
+  $mensajes.insertAdjacentHTML('beforeend', html);
 });
 
 $botonEnviar.addEventListener('click', e => {
@@ -25,7 +33,7 @@ $botonEnviar.addEventListener('click', e => {
     if (error) {
       return console.log(error);
     }
-    console.log('Mensaje entregado!');
+    // console.log('Mensaje entregado!');
   });
 });
 
