@@ -7,6 +7,7 @@ const $mensajes = document.querySelector('#messages');
 
 // Templates
 const messageTemplate = document.querySelector('#message-template').innerHTML;
+const locationMessageTemplate = document.querySelector('#location-message-template').innerHTML;
 
 // server (emit) -> client (receive) --acknowledgement--> server
 
@@ -18,6 +19,13 @@ socket.on('message', mensaje => {
          mensaje
   });
   $mensajes.insertAdjacentHTML('beforeend', html);
+});
+
+socket.on('locationMessage', url => {
+  const html = Mustache.render(locationMessageTemplate, {
+    url
+});
+$mensajes.insertAdjacentHTML('beforeend', html);
 });
 
 $botonEnviar.addEventListener('click', e => {

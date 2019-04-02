@@ -39,7 +39,7 @@ io.on('connection', (socket) => {
     });
 
     socket.on('sendLocation', (coords, retorno) => {
-        io.emit('message', `https://google.com/maps?q=${coords.latitude},${coords.longitude}`);
+        io.emit('locationMessage', `https://google.com/maps?q=${coords.latitude},${coords.longitude}`);
         retorno(); // hacerle saber al cliente que se ha enviado mensaje
     });
 
