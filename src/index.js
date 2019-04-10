@@ -3,6 +3,7 @@ const http = require('http');
 const express = require('express');
 const socketIO = require('socket.io');
 const Filter = require('bad-words');
+const { generarMensaje } = require('./utils/messages');
 
 const publicDirectoryPath = path.join(__dirname, '../public');
 const port = process.env.PORT || 3000;
@@ -20,17 +21,17 @@ app.use(express.static(publicDirectoryPath));
 io.on('connection', (socket) => {
     // console.log('New websocket connection!');
 
-    socket.emit('message', 'Bienvenido a la app de chat!');
-    socket.broadcast.emit('message', 'Un nuevo usuario se ha conectado...');
+    socket.emit('message', generarMensaje('Bienvenido a la app de chat!') );
+    socket.broadcast.emit('message', generarMensaje('Un nuevo usuario se ha conectado...'));
 
     socket.on('mensajeEnviado', (mensaje, callback) =>{
         const filter = new Filter();
 
         if (filter.isProfane(mensaje)) {
-            return callback('No se permiten palabrotas!');
+            return callback(generarMensaje('No se permiten palabrotas!'));
         }
 
-        io.emit('message', mensaje);
+        io.emit('message', generarMensaje(mensaje));
         callback();
     });
 
