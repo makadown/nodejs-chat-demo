@@ -3,7 +3,7 @@ const http = require('http');
 const express = require('express');
 const socketIO = require('socket.io');
 const Filter = require('bad-words');
-const { generarMensaje } = require('./utils/messages');
+const { generarMensaje, generateLocationMessage } = require('./utils/messages');
 
 const publicDirectoryPath = path.join(__dirname, '../public');
 const port = process.env.PORT || 3000;
@@ -39,9 +39,10 @@ io.on('connection', (socket) => {
         io.emit('message', `A user has left!`);
     });
 
-    socket.on('sendLocation', (coords, retorno) => {
-        io.emit('locationMessage', `https://google.com/maps?q=${coords.latitude},${coords.longitude}`);
-        retorno(); // hacerle saber al cliente que se ha enviado mensaje
+    socket.on('sendLocation', (coords, callback) => {
+        io.emit('locationMessage',
+            generateLocationMessage(`https://google.com/maps?q=${coords.latitude},${coords.longitude}`));
+        callback(); // hacerle saber al cliente que se ha enviado mensaje
     });
 
 });
