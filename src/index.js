@@ -21,8 +21,14 @@ app.use(express.static(publicDirectoryPath));
 io.on('connection', (socket) => {
     // console.log('New websocket connection!');
 
-    socket.emit('message', generarMensaje('Bienvenido a la app de chat!') );
-    socket.broadcast.emit('message', generarMensaje('Un nuevo usuario se ha conectado...'));
+    socket.on('join', ({username, room}) => {
+        /* socket.join genera un "cuarto" de conexion, de modo que se emiten especificos eventos
+           unicamente para ese "cuarto", de modos que solo lo verán quienes se conecten a éste, y
+           esto se hace mediante socket.broadcast.to.emit. */
+        socket.join(room);
+        socket.emit('message', generarMensaje(`Bienvenido al cuarto ${room} de chat`) );
+        socket.broadcast.to(room).emit('message', generarMensaje( `${username} se ha conectado ...`));
+    });
 
     socket.on('mensajeEnviado', (mensaje, callback) =>{
         const filter = new Filter();
@@ -36,7 +42,7 @@ io.on('connection', (socket) => {
     });
 
     socket.on('disconnect', () => {
-        io.emit('message', `A user has left!`);
+        io.emit('message', generarMensaje(`A user has left!`));
     });
 
     socket.on('sendLocation', (coords, callback) => {
