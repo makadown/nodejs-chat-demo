@@ -26,6 +26,7 @@ io.on('connection', (socket) => {
            unicamente para ese "cuarto", de modos que solo lo verán quienes se conecten a éste, y
            esto se hace mediante socket.broadcast.to.emit. */
         socket.join(room);
+
         socket.emit('message', generarMensaje(`Bienvenido al cuarto ${room} de chat`) );
         socket.broadcast.to(room).emit('message', generarMensaje( `${username} se ha conectado ...`));
     });
