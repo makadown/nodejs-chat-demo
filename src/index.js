@@ -4,6 +4,7 @@ const express = require('express');
 const socketIO = require('socket.io');
 const Filter = require('bad-words');
 const { generarMensaje, generateLocationMessage } = require('./utils/messages');
+const { addUser, removeUser, getUser, getUsersInRoom } = require('./utils/users');
 
 const publicDirectoryPath = path.join(__dirname, '../public');
 const port = process.env.PORT || 3000;
@@ -21,14 +22,31 @@ app.use(express.static(publicDirectoryPath));
 io.on('connection', (socket) => {
     // console.log('New websocket connection!');
 
-    socket.on('join', ({username, room}) => {
+   /* socket.on('join', ({username, room}, callback) => {
+        const {error, user} = addUser({ id: socket.id, username, room }); */
+    socket.on('join', (options, callback) => {
+        /* La forma en que se usa options es lo mismo que lo que esta comentado arriba, pero
+           con el uso de options me ayuda en caso de que en algun momento se reestructuren
+           los argumentos y asi despues enviar los parametros que necesite... */
+        console.log('------------------------------');
+        console.log('Tratando de agregar usuario');
+        console.log({ id: socket.id, ...options });
+        const {error, user} = addUser({ id: socket.id, ...options });
+
+        console.log ('Error en socket join?');
+        console.log(error);
+        if (error) {
+            return callback(error);
+        }
         /* socket.join genera un "cuarto" de conexion, de modo que se emiten especificos eventos
            unicamente para ese "cuarto", de modos que solo lo verán quienes se conecten a éste, y
            esto se hace mediante socket.broadcast.to.emit. */
-        socket.join(room);
+        socket.join(user.room);
 
-        socket.emit('message', generarMensaje(`Bienvenido al cuarto ${room} de chat`) );
-        socket.broadcast.to(room).emit('message', generarMensaje( `${username} se ha conectado ...`));
+        socket.emit('message', generarMensaje(`Bienvenido al cuarto ${user.room} de chat`) );
+        socket.broadcast.to(user.room).emit('message', generarMensaje( `${user.username} se ha conectado ...`));
+
+        callback();
     });
 
     socket.on('mensajeEnviado', (mensaje, callback) =>{
@@ -43,7 +61,12 @@ io.on('connection', (socket) => {
     });
 
     socket.on('disconnect', () => {
-        io.emit('message', generarMensaje(`A user has left!`));
+        const userRemoved = removeUser(socket.id);
+        if (userRemoved) {
+            io.to(userRemoved.room).emit('message', generarMensaje(`${userRemoved.username} has left!`));
+            // io.emit('message', generarMensaje(`${userRemoved.username} has left!`));
+        }
+        
     });
 
     socket.on('sendLocation', (coords, callback) => {
