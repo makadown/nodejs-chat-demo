@@ -28,13 +28,12 @@ io.on('connection', (socket) => {
         /* La forma en que se usa options es lo mismo que lo que esta comentado arriba, pero
            con el uso de options me ayuda en caso de que en algun momento se reestructuren
            los argumentos y asi despues enviar los parametros que necesite... */
-        console.log('------------------------------');
-        console.log('Tratando de agregar usuario');
-        console.log({ id: socket.id, ...options });
         const {error, user} = addUser({ id: socket.id, ...options });
+        /* cuando se crea un nuevo socket, éste crea su propio id el cual nos lo podemos
+         "gorrear" para incrustarlo al id del usuario que entra al chat */
 
-        console.log ('Error en socket join?');
-        console.log(error);
+       // console.log ('Error en socket join?');
+       // console.log(error);
         if (error) {
             return callback(error);
         }
@@ -43,35 +42,37 @@ io.on('connection', (socket) => {
            esto se hace mediante socket.broadcast.to.emit. */
         socket.join(user.room);
 
-        socket.emit('message', generarMensaje(`Bienvenido al cuarto ${user.room} de chat`) );
-        socket.broadcast.to(user.room).emit('message', generarMensaje( `${user.username} se ha conectado ...`));
+        socket.emit('message', generarMensaje('Admin', `Bienvenido al chat! Estás en cuarto '${user.room}'`) );
+        socket.broadcast.to(user.room).emit('message', generarMensaje('Admin', `${user.username} se ha conectado ...`));
 
         callback();
     });
-
+ 
     socket.on('mensajeEnviado', (mensaje, callback) =>{
+        const user = getUser(socket.id);
         const filter = new Filter();
 
         if (filter.isProfane(mensaje)) {
-            return callback(generarMensaje('No se permiten palabrotas!'));
+            return callback(generarMensaje(user.username, 'No se permiten palabrotas!'));
         }
 
-        io.emit('message', generarMensaje(mensaje));
+        io.to(user.room).emit('message', generarMensaje(user.username, mensaje));
         callback();
     });
 
     socket.on('disconnect', () => {
         const userRemoved = removeUser(socket.id);
         if (userRemoved) {
-            io.to(userRemoved.room).emit('message', generarMensaje(`${userRemoved.username} has left!`));
-            // io.emit('message', generarMensaje(`${userRemoved.username} has left!`));
+            io.to(userRemoved.room).emit('message', generarMensaje('Admin', `${userRemoved.username} has left!`));
         }
         
     });
 
     socket.on('sendLocation', (coords, callback) => {
-        io.emit('locationMessage',
-            generateLocationMessage(`https://google.com/maps?q=${coords.latitude},${coords.longitude}`));
+        const user = getUser(socket.id);
+        io.to(user.room).emit('locationMessage',
+            generateLocationMessage(user.username, 
+                    `https://google.com/maps?q=${coords.latitude},${coords.longitude}`));
         callback(); // hacerle saber al cliente que se ha enviado mensaje
     });
 

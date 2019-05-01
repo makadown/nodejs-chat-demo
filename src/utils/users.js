@@ -3,16 +3,16 @@ const users = [];
 // addUser, removeUser, getUser, getUsersInRoom
 
 const addUser = ( ({id, username, room}) => {
-    console.log('Limpianda data');
+    // console.log('Limpianda data');
     // Clean the data.
     username = username.trim().toLowerCase();
     room = room.trim().toLowerCase();
 
-    console.log('Validando data');
-    console.log('username: ');
-    console.log(username);
-    console.log('room: ');
-    console.log(room);
+    // console.log('Validando data');
+    // console.log('username: ');
+    // console.log(username);
+    // console.log('room: ');
+    // console.log(room);
     // Validate the data
     if (!username || !room) {
         return {
@@ -20,13 +20,13 @@ const addUser = ( ({id, username, room}) => {
         }
     }
 
-    console.log('Buscando usuario existente: ');
+    // console.log('Buscando usuario existente: ');
     // Check for existing user
     const existingUser = users.find( (user) => {
         return user.room === room && user.username === username;
     });
 
-    console.log('Existing user? ' + existingUser?existingUser:'Nel, no existe');
+    // console.log('Existing user? ' + existingUser?existingUser:'Nel, no existe');
     // Validate username
     if (existingUser) {
         return {
@@ -37,8 +37,8 @@ const addUser = ( ({id, username, room}) => {
     // Store user
     const user = { id, username, room};
     users.push(user);
-    console.log('usuarios Creados ahora: ');
-    console.log(user);
+    // console.log('usuarios Creados ahora: ');
+    // console.log(user);
 
     return {user};
 });
