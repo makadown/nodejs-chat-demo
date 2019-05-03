@@ -16,6 +16,7 @@ $txtMensaje.addEventListener("keyup", (event) => {
 // Templates
 const messageTemplate = document.querySelector('#message-template').innerHTML;
 const locationMessageTemplate = document.querySelector('#location-message-template').innerHTML;
+const sideBarTemplate = document.querySelector('#sidebar-template').innerHTML;
 
 // Options
 const { username, room } = Qs.parse(location.search, { ignoreQueryPrefix: true });
@@ -40,6 +41,14 @@ socket.on('locationMessage', mensaje => {
     createdAt: moment(mensaje.createdAt).format('hh:mm:ss a')
   });
   $mensajes.insertAdjacentHTML('beforeend', html);
+});
+
+socket.on('roomData', ({room, users}) => {
+      const html =  Mustache.render(sideBarTemplate, {
+        room,
+        users
+      });
+      document.querySelector('#sidebar').innerHTML = html;
 });
 
 $botonEnviar.addEventListener('click', enviarTexto);

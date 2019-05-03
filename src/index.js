@@ -45,6 +45,11 @@ io.on('connection', (socket) => {
         socket.emit('message', generarMensaje('Admin', `Bienvenido al chat! Estás en cuarto '${user.room}'`) );
         socket.broadcast.to(user.room).emit('message', generarMensaje('Admin', `${user.username} se ha conectado ...`));
 
+        io.to(user.room).emit('roomData', {
+            room: user.room,
+            users: getUsersInRoom(user.room)
+        });
+
         callback();
     });
  
@@ -64,6 +69,10 @@ io.on('connection', (socket) => {
         const userRemoved = removeUser(socket.id);
         if (userRemoved) {
             io.to(userRemoved.room).emit('message', generarMensaje('Admin', `${userRemoved.username} has left!`));
+            io.to(userRemoved.room).emit('roomData', {
+                room: userRemoved.room,
+                users: getUsersInRoom(userRemoved.room)
+            });
         }
         
     });
