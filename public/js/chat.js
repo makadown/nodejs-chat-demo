@@ -24,6 +24,32 @@ const { username, room } = Qs.parse(location.search, { ignoreQueryPrefix: true }
 // server (emit) -> client (receive) --acknowledgement--> server
 // client (emit) -> server (receive) --acknowledgement--> client
 
+// funcion para autoposicionar los mensajes de chat al usuario
+const autoscroll = () => {
+    // Nuevo elemento de mensaje
+    const $newMessage = $mensajes.lastElementChild;
+    // Altura del nuevo mensaje
+    const newMessageStyles = getComputedStyle($newMessage);
+    const newMessageMargin = parseInt(newMessageStyles.marginBottom);
+    const newMessageHeight = $newMessage.offsetHeight + newMessageMargin;
+    
+    // Altura visible
+    const visibleHeight = $mensajes.offsetHeight;
+
+    // Altura de contenedor de mensajes
+    const containerHeight = $mensajes.scrollHeight;
+
+    /* Que tan lejos se ha escrolleado?, es decir,
+     obtengo la distancia que se ha escrolleado desde la cima */
+    const scrollOffset = $mensajes.scrollTop + visibleHeight;
+
+    if (containerHeight - newMessageHeight <= scrollOffset ) {
+      /* Ir al fondo del chat para seguir el hilo de conversacion
+       solo lo hago cuando mi scroll esta hasta abajo */
+        $mensajes.scrollTop = $mensajes.scrollHeight;
+    }
+};
+
 socket.on('message', mensaje => {
   // console.log(mensaje);
   const html = Mustache.render(messageTemplate, {
@@ -32,6 +58,7 @@ socket.on('message', mensaje => {
     createdAt: moment(mensaje.createdAt).format('hh:mm:ss a')
   });
   $mensajes.insertAdjacentHTML('beforeend', html);
+  autoscroll();
 });
 
 socket.on('locationMessage', mensaje => {
@@ -41,6 +68,7 @@ socket.on('locationMessage', mensaje => {
     createdAt: moment(mensaje.createdAt).format('hh:mm:ss a')
   });
   $mensajes.insertAdjacentHTML('beforeend', html);
+  autoscroll();
 });
 
 socket.on('roomData', ({room, users}) => {
