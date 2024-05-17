@@ -1,6 +1,7 @@
 # Node-Chat-App
 
 Proyecto demo. 
+![alt text](chat-demo.png)
 
 Parte del entrenamiento en NodeJS. Instructor: Andrew Mead.
 

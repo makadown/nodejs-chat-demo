@@ -5,26 +5,29 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  <title>Makadowns' Node Chat App Demo</title>
+  <title>Node Chat App Demo</title>
   <link rel="icon" href="/img/favicon.png">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
-  <link rel="stylesheet" href="/css/styles.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="stylesheet" href="/css/styles.css">
 </head>
 
 <body>
-   <div class="centered-form">
-     <div class="centered-form__box">
-       <h1>Caile al cotorreo!</h1>
+  <div class="container m-0 p-0">
+   <div class="centered-form rounded">
+     <div class="centered-form__box rounded">
+       <h1>Chat demo</h1>
        <form action="/chat.html">
          <label>Display name</label>
          <input type="text" name="username" placeholder="Escribe tu apodo / nombre" required>
          <label>Room</label>
          <input type="text" name="room" placeholder="Escribe nombre de Room / Sala" required>
-         <button>Entrar</button>
+         <button class="rounded">Entrar</button>
        </form>
+       <p class="mt-3">Ejercicio con NodeJs, Sockets y Express</p>
+       <pre class="mt-3">Powered by: <a href="https://github.com/makadown">makadown</a>. 2017-<script>document.write(new Date().getFullYear())</script></pre>
      </div>
    </div>
+  </div>
 </body>
 
 </html>

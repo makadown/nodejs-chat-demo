@@ -108,6 +108,7 @@ $txtMensaje.addEventListener('keyup', function () {
 });
 
 $botonLocation.addEventListener('click', () => {
+  console.log('Compartiendo locación...', navigator);
   if (!navigator.geolocation) {
     return alert('Geolocación no es soportada por el navegador.');
   }
@@ -118,8 +119,14 @@ $botonLocation.addEventListener('click', () => {
       latitude: position.coords.latitude,
       longitude: position.coords.longitude
     }, () => {
-     // console.log('Locación compartida!');
+      console.log('Locación compartida!');
+    }, error => {
+      return alert('Error al compartir la locación');
     });
+  }, error => {
+    console.log(error);
+    $botonLocation.removeAttribute('disabled');
+    return alert('Error al compartir la locación: ', error.message);
   });
 });
 

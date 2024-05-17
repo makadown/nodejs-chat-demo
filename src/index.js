@@ -78,11 +78,14 @@ io.on('connection', (socket) => {
     });
 
     socket.on('sendLocation', (coords, callback) => {
+        console.log('este es el callback', callback)
         const user = getUser(socket.id);
         io.to(user.room).emit('locationMessage',
             generateLocationMessage(user.username, 
                     `https://google.com/maps?q=${coords.latitude},${coords.longitude}`));
-        callback(); // hacerle saber al cliente que se ha enviado mensaje
+       
+        // check if callback is valid and is a function
+        if (callback && typeof callback === 'function') { callback(); }
     });
 
 });
