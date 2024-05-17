@@ -1,9 +1,10 @@
 # Node-Chat-App
 
-Proyecto demo. 
+Proyecto demo de chat para practicar NodeJs, Express, Sockets, Geolocalizacion y Javascript.
 ![alt text](chat-demo.png)
 
-Parte del entrenamiento en NodeJS. Instructor: Andrew Mead.
+Parte del entrenamiento en NodeJS. Instructor: Andrew Mead. 
+https://www.udemy.com/course/the-complete-nodejs-developer-course-2/
 
 ## Ejecucion
 
@@ -18,3 +19,4 @@ o
 ## instalaciones notables
 
 > npm install bad-words
+
